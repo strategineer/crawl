@@ -1114,6 +1114,49 @@ xHJKLMDEFHJKLMDEx
 xxxxxxxxxxxxxxxxx
 ENDMAP
 
+# 7, 8 gods
+NAME:   strategineer_temple_sanctuary
+ORIENT: encompass
+TAGS:   no_rotate no_pool_fixup temple_altars_7 temple_altars_8
+PLACE:  Temple
+FTILE:  tfcW = floor_grass
+: local altar_count = get_altar_count(_G, 8)
+: if altar_count == "7" then
+SUBST:  C = .
+: elseif altar_count == "8" then
+SUBST:  C = B, T = .
+: end
+: set_border_fill_type("endless_lava")
+MAP
+llllllllllllllllllllllllllllllllllllllllllllll
+llllllllllllllllllllllllllllllllllllllllllllll
+lllllllllllllllllllllmllllllllllllllllllllllll
+llllllllllllllllllllmmmlllllllllllllllllllllll
+lllllllllllllllllllmX.Xmllllllllllllllllllllll
+llllllllllllllllllmX...Xmlllllllllllllllllllll
+lllllllllllllllllmX..T..Xmllllllllllllllllllll
+llllllllllllllllmX...C...Xmlllllllllllllllllll
+lllllllllllllllmX.........Xmllllllllllllllllll
+llllllllllllllmX...........Xmlllllllllllllllll
+lllllllllllllmX...B.....{...Xmllllllllllllllll
+llllllllllllmX...............Xmlllllllllllllll
+lllllllllllmX+ccccccc+ccccccc+Xmllllllllllllll
+llllllllllmX...cWWWWWfWWWWWc...Xmlllllllllllll
+lllllllllmX....ccWWWfffWWWcc....Xmllllllllllll
+llllllllmX......ccWWftfWWcc......Xmlllllllllll
+lllllllmX...B....ccWfffWcc....B...Xmllllllllll
+llllllmX..........cWWfWWc..........Xmlllllllll
+lllllmX...........cccfccc...........Xmllllllll
+llllmX...B.....B....c+c....B.....B...Xmlllllll
+llllm.................................mlllllll
+llllmXmXmXmXmXmXmXmXmXmXmXmXmXmXmXmXmXmlllllll
+llllllllllllllllllllllllllllllllllllllllllllll
+llllllllllllllllllllllllllllllllllllllllllllll
+llllllllllllllllllllllllllllllllllllllllllllll
+ENDMAP
+
+
+
 # 8 gods
 NAME:   nicolae_temple_colour_theory
 TAGS:   temple_altars_8
