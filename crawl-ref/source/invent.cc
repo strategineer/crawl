@@ -76,6 +76,7 @@ InvEntry::InvEntry(const item_def &i)
     // use the const item in this class whenever possible
     data = const_cast<item_def *>(item);
 
+
     if (in_inventory(i) && i.base_type != OBJ_GOLD)
     {
         // We need to do this in order to get the 'wielded' annotation.
@@ -93,6 +94,10 @@ InvEntry::InvEntry(const item_def &i)
                             trapped ? trapped->name(DESC_A).c_str()
                                     : "nobody"); // buggy net, but don't crash
     }
+
+    // TODO(strategineer): this should only appear in the "wield menu"
+    if (is_weapon(i))
+        text += damage_rating(i);
 
     if (i.base_type != OBJ_GOLD && in_inventory(i))
         add_hotkey(index_to_letter(i.link));

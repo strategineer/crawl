@@ -1238,7 +1238,7 @@ static string _describe_missile_brand(const item_def &item)
      return " + " + uppercase_first(brand_name);
 }
 
-static string _damage_rating(const item_def &item)
+string damage_rating(const item_def &item)
 {
     if (is_unrandom_artefact(item, UNRAND_WOE))
         return "\nDamage rating: your enemies will bleed and die for Makhleb.";
@@ -1386,7 +1386,7 @@ static void _append_weapon_stats(string &description, const item_def &item)
     if (want_player_stats)
     {
         description += _desc_attack_delay(item);
-        description += _damage_rating(item);
+        description += damage_rating(item);
     }
 }
 
@@ -1766,7 +1766,7 @@ static string _describe_ammo(const item_def &item)
             _append_skill_target_desc(description, SK_THROWING, target_skill);
 
         if (!is_useless_item(item))
-            description += _damage_rating(item);
+            description += damage_rating(item);
     }
 
     if (ammo_always_destroyed(item))
