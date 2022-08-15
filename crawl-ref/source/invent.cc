@@ -96,8 +96,9 @@ InvEntry::InvEntry(const item_def &i)
     }
 
     // TODO(strategineer): this should only appear in the "wield menu"
-    if (is_weapon(i))
-        text += damage_rating(i);
+    if (is_weapon(i)) {
+        text += make_stringf(" | Delay: %s | Damage Rating: %s", string(get_attack_delay(i) / 3, '*').c_str(), damage_rating(i, true).c_str());
+    }
 
     if (i.base_type != OBJ_GOLD && in_inventory(i))
         add_hotkey(index_to_letter(i.link));

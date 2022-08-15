@@ -80,7 +80,8 @@ string serpent_of_hell_flavour(monster_type m);
 
 string player_spell_desc(spell_type spell);
 void get_spell_desc(const spell_type spell, describe_info &inf);
-string damage_rating(const item_def &item);
+int get_attack_delay(const item_def &item);
+string damage_rating(const item_def &item, const bool star_rating = false);
 void describe_spell(spell_type spelled,
                     const monster_info *mon_owner = nullptr,
                     const item_def* item = nullptr);

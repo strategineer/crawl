@@ -1178,7 +1178,7 @@ static void _append_skill_target_desc(string &description, skill_type skill,
     }
 }
 
-static int _get_delay(const item_def &item)
+int get_attack_delay(const item_def &item)
 {
     if (!is_range_weapon(item))
         return you.attack_delay_with(nullptr, false, &item).expected();
@@ -1190,7 +1190,7 @@ static int _get_delay(const item_def &item)
 static string _desc_attack_delay(const item_def &item)
 {
     const int base_delay = property(item, PWPN_SPEED);
-    const int cur_delay = _get_delay(item);
+    const int cur_delay = get_attack_delay(item);
     if (base_delay == cur_delay)
         return "";
     return make_stringf("\n    Current attack delay: %.1f.", (float)cur_delay / 10);
@@ -1238,10 +1238,13 @@ static string _describe_missile_brand(const item_def &item)
      return " + " + uppercase_first(brand_name);
 }
 
-string damage_rating(const item_def &item)
+string damage_rating(const item_def &item, const bool star_rating)
 {
-    if (is_unrandom_artefact(item, UNRAND_WOE))
+    if (is_unrandom_artefact(item, UNRAND_WOE)) {
+        if(star_rating)
+            return "0";
         return "\nDamage rating: your enemies will bleed and die for Makhleb.";
+    }
 
     const bool thrown = item.base_type == OBJ_MISSILES;
 
@@ -1268,6 +1271,9 @@ string damage_rating(const item_def &item)
     rating = apply_fighting_skill(rating, false, false);
     rating /= DAM_RATE_SCALE;
     rating += plusses;
+    if(star_rating)
+        // 10 damage/star
+        return string((rating / 10) + 1, '*');
 
     const string base_dam_desc = thrown ? make_stringf("[%d + %d (Thrw)]", base_dam, extra_base_dam)
                                         : make_stringf("%d", base_dam);
