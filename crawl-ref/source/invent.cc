@@ -97,7 +97,29 @@ InvEntry::InvEntry(const item_def &i)
 
     // TODO(strategineer): this should only appear in the "wield menu"
     if (is_weapon(i)) {
-        text += make_stringf(" | Delay: %s | Damage Rating: %s", string(get_attack_delay(i) / 3, '*').c_str(), damage_rating(i, true).c_str());
+        string weapon_speed_description;
+        int attack_delay = (float) get_attack_delay(i);
+        if (attack_delay < 4)
+            weapon_speed_description = "blindingly fast";
+        else if (attack_delay < 5)
+            weapon_speed_description = "extremely fast";
+        else if (attack_delay < 6)
+            weapon_speed_description = "very fast";
+        else if (attack_delay < 8)
+            weapon_speed_description = "quite fast";
+        else if (attack_delay < 9)
+            weapon_speed_description = "above average speed";
+        else if (attack_delay < 11)
+            weapon_speed_description = "average speed";
+        else if (attack_delay < 13)
+            weapon_speed_description = "below average speed";
+        else if (attack_delay < 16)
+            weapon_speed_description = "quite slow";
+        else if (attack_delay < 20)
+            weapon_speed_description = "very slow";
+        else
+            weapon_speed_description = "extremely slow";
+        text += make_stringf(" [%s, %s]", weapon_speed_description.c_str(), damage_rating(i, true).c_str());
     }
 
     if (i.base_type != OBJ_GOLD && in_inventory(i))

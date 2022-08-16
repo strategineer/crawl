@@ -1238,11 +1238,13 @@ static string _describe_missile_brand(const item_def &item)
      return " + " + uppercase_first(brand_name);
 }
 
-string damage_rating(const item_def &item, const bool star_rating)
+string damage_rating(const item_def &item, const bool short_description)
 {
     if (is_unrandom_artefact(item, UNRAND_WOE)) {
-        if(star_rating)
-            return "0";
+        if(short_description) {
+            const char *inf = Options.char_set == CSET_ASCII ? "inf" : "\u221e"; //"∞"
+            return make_stringf("Damage Rating: %s", inf);
+        }
         return "\nDamage rating: your enemies will bleed and die for Makhleb.";
     }
 
@@ -1271,9 +1273,8 @@ string damage_rating(const item_def &item, const bool star_rating)
     rating = apply_fighting_skill(rating, false, false);
     rating /= DAM_RATE_SCALE;
     rating += plusses;
-    if(star_rating)
-        // 10 damage/star
-        return string((rating / 10) + 1, '*');
+    if(short_description)
+        return make_stringf("Damage Rating: %d", rating);
 
     const string base_dam_desc = thrown ? make_stringf("[%d + %d (Thrw)]", base_dam, extra_base_dam)
                                         : make_stringf("%d", base_dam);
